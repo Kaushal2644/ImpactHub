@@ -1,0 +1,30 @@
+# Node modules (both frontend & backend)
+node_modules/
+backend/node_modules/
+frontend/node_modules/
+
+# Environment files (VERY IMPORTANT)
+.env
+backend/.env
+frontend/.env
+
+# Build folders
+dist/
+build/
+frontend/dist/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# Optional: cache
+.cache/
