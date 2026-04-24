@@ -86,6 +86,8 @@ const getInsights = async (req, res) => {
 const chat = async (req, res) => {
   try {
     const { message } = req.body
+
+    // Fetch ALL relevant data
     const totalNeeds = await Need.countDocuments({ status: { $ne: 'resolved' } })
     const criticalNeeds = await Need.countDocuments({
       urgency: 'critical',
@@ -94,7 +96,33 @@ const chat = async (req, res) => {
     const totalNGOs = await NGO.countDocuments({ status: 'active' })
     const recentNeeds = await Need.find().sort({ createdAt: -1 }).limit(5)
 
-    const context = { totalNeeds, criticalNeeds, totalNGOs, recentNeeds }
+    // Fetch NGO details
+    const ngos = await NGO.find({ status: 'active' }).select(
+      'name operatingLocation specializations efficiencyScore assignmentCapacity currentAssignments serviceRadius'
+    )
+
+    // Fetch all open needs with details
+    const openNeeds = await Need.find({ status: { $ne: 'resolved' } }).select(
+      'title category urgency location peopleAffected status volunteersNeeded volunteersAssigned'
+    )
+
+    // Fetch recent field reports
+    const reports = await require('../models/FieldReport')
+      .find()
+      .sort({ createdAt: -1 })
+      .limit(5)
+      .select('title location urgencyObserved category isConverted')
+
+    const context = {
+      totalNeeds,
+      criticalNeeds,
+      totalNGOs,
+      recentNeeds,
+      ngos,
+      openNeeds,
+      reports
+    }
+
     const response = await chatWithAI(message, context)
     res.json({ success: true, data: { response } })
   } catch (error) {

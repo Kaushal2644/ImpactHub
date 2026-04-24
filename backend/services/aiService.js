@@ -150,17 +150,52 @@ You are ImpactHub AI Assistant, a helpful assistant for a community volunteer pl
 You help coordinators understand community needs, match volunteers, and prioritize resources.
 
 Current Platform Data:
-- Open Needs: ${context.totalNeeds}
+
+STATISTICS:
+- Total Open Needs: ${context.totalNeeds}
 - Critical Needs: ${context.criticalNeeds}
 - Active NGOs: ${context.totalNGOs}
-- Recent Needs: ${context.recentNeeds?.map(n => `${n.title} (${n.urgency})`).join(', ')}
+
+ACTIVE NGOs:
+${context.ngos?.map(n => `
+- Name: ${n.name}
+  Location: ${n.operatingLocation}
+  Specializations: ${n.specializations.join(', ')}
+  Efficiency: ${n.efficiencyScore}%
+  Capacity: ${n.currentAssignments}/${n.assignmentCapacity} assignments
+  Coverage: ${n.serviceRadius}
+`).join('') || 'No NGOs available'}
+
+OPEN COMMUNITY NEEDS:
+${context.openNeeds?.map(n => `
+- Title: ${n.title}
+  Category: ${n.category}
+  Urgency: ${n.urgency}
+  Location: ${n.location}
+  People Affected: ${n.peopleAffected}
+  Status: ${n.status}
+  Volunteers: ${n.volunteersAssigned}/${n.volunteersNeeded}
+`).join('') || 'No open needs'}
+
+RECENT FIELD REPORTS:
+${context.reports?.map(r => `
+- Title: ${r.title}
+  Location: ${r.location}
+  Urgency: ${r.urgencyObserved}
+  Category: ${r.category}
+  Converted: ${r.isConverted ? 'Yes' : 'No'}
+`).join('') || 'No recent reports'}
 
 User Question: ${message}
 
-Respond in a helpful, concise, and professional manner.
-Keep response under 150 words.
-If asked about specific data you do not have, say so honestly.
-Do not use markdown formatting in your response.
+Instructions:
+- Answer based on the real data provided above
+- Be specific — mention actual NGO names, need titles, locations
+- Be concise — keep response under 200 words
+- Be helpful and professional
+- If asked about a specific NGO or need, give detailed information from the data
+- Do not use markdown formatting
+- Do not make up data that is not provided above
 `
   const text = await callGroq(prompt)
   return text
