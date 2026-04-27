@@ -6,7 +6,7 @@
 
 [![Google Solution Challenge](https://img.shields.io/badge/Google%20Solution%20Challenge-Build%20with%20AI-4285F4?style=for-the-badge&logo=google&logoColor=white)](https://developers.google.com/community/gdsc-solution-challenge)
 [![MERN Stack](https://img.shields.io/badge/Stack-MERN-10b981?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
-[![AI Powered](https://img.shields.io/badge/AI-Groq%20%7C%20Llama%203-f59e0b?style=for-the-badge&logo=ai&logoColor=white)](https://groq.com/)
+[![AI Powered](https://img.shields.io/badge/AI-Gemini%202.0%20Flash-4285F4?style=for-the-badge&logo=google&logoColor=white)](https://gemini.google.com)
 [![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
 
 ### 🏆 Google Solution Challenge — Build with AI
@@ -48,7 +48,7 @@ Local social groups and NGOs collect a lot of important information about commun
 1. **Centralizes** scattered community needs from field reports and surveys
 2. **Visualizes** the most urgent local needs through intuitive dashboards
 3. **Intelligently matches** available NGOs with specific tasks using our Smart Match algorithm
-4. **Automates analysis** of field reports using Groq AI (Llama 3)
+4. **Automates analysis** of field reports using Gemini AI (Flash 2.0)
 5. **Provides actionable insights** for community coordinators
 
 ---
@@ -101,7 +101,7 @@ This project aligns with the following UN SDGs:
 - Search and filter reports by location and category
 - Track conversion status with visual badges
 
-### 🤖 AI Features (Powered by Groq — Llama 3)
+### 🤖 AI Features (Powered by Gemini — Flash 2.0)
 
 | Feature | Description |
 |---------|-------------|
@@ -145,7 +145,7 @@ This project aligns with the following UN SDGs:
 ### AI & External Services
 | Service | Purpose |
 |---------|---------|
-| **Groq AI (Llama 3.3)** | AI Analysis & Chatbot |
+| **Google AI (2.5 flash)** | AI Analysis & Chatbot |
 | **Google OAuth 2.0** | Social Authentication |
 
 ---
@@ -181,7 +181,7 @@ ImpactHub/
 │   │   ├── match.js           # Match routes
 │   │   └── ai.js              # AI routes
 │   ├── services/
-│   │   └── aiService.js       # Groq AI integration
+│   │   └── aiService.js       # Gemini AI integration
 │   └── server.js              # Express app entry point
 │
 └── frontend/                   # React + Vite application
@@ -233,7 +233,7 @@ GOOGLE_CLIENT_SECRET=your_google_client_secret
 GOOGLE_CALLBACK_URL=http://localhost:5000/api/auth/google/callback
 FRONTEND_URL=http://localhost:5173
 SESSION_SECRET=your_session_secret
-GROQ_API_KEY=your_groq_api_key
+GEMINI_API_KEY=your_gemini_api_key
 ```
 
 **4. Seed the database:**
@@ -377,7 +377,7 @@ This project is licensed under the MIT License — see the [LICENSE](LICENSE) fi
 ## 🙏 Acknowledgements
 
 - [Google Solution Challenge](https://developers.google.com/community/gdsc-solution-challenge) for the inspiration
-- [Groq](https://groq.com/) for blazing fast AI inference
+- [Gemini](https://gemini.google.com) for blazing fast AI inference
 - [MongoDB](https://www.mongodb.com/) for database
 - [Lucide React](https://lucide.dev/) for beautiful icons
 - All the communities and NGOs whose real-world challenges inspired this solution
