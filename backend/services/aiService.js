@@ -1,28 +1,32 @@
-const Groq = require('groq-sdk')
+const { GoogleGenerativeAI } = require('@google/generative-ai')
 
-const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY
-})
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
 
-// Helper to call Groq
-const callGroq = async (prompt) => {
-  const completion = await groq.chat.completions.create({
-    messages: [{ role: 'user', content: prompt }],
-    model: 'llama-3.3-70b-versatile',
-    temperature: 0.7,
-    max_tokens: 1024
-  })
-  return completion.choices[0]?.message?.content || ''
-}
+// Helper to call Gemini
+const callGemini = async (prompt) => {
+  const model = genAI.getGenerativeModel({
+    model: "gemini-2.5-flash"
+  });
+
+  const result = await model.generateContent(prompt);
+
+  return result.response.text();
+};
 
 // Helper to parse JSON from response
 const parseJSON = (text) => {
-  const clean = text
-    .replace(/```json/g, '')
-    .replace(/```/g, '')
-    .trim()
-  return JSON.parse(clean)
-}
+  try {
+    const clean = text
+      .replace(/```json/g, '')
+      .replace(/```/g, '')
+      .trim();
+
+    return JSON.parse(clean);
+  } catch (err) {
+    console.error("JSON Parse Error:", text);
+    throw err;
+  }
+};
 
 // Analyze field report
 const analyzeFieldReport = async (reportData) => {
@@ -49,7 +53,7 @@ Respond ONLY in this exact JSON format (no markdown, no extra text):
 Valid urgency values: critical, high, medium, low
 Valid category values: disaster relief, sanitation, education, food security, elderly care, mental health, healthcare, infrastructure, other
 `
-  const text = await callGroq(prompt)
+  const text = await callGemini(prompt)
   return parseJSON(text)
 }
 
@@ -73,7 +77,7 @@ Respond ONLY in this exact JSON format (no markdown, no extra text):
   "keyPoints": ["point1", "point2", "point3"]
 }
 `
-  const text = await callGroq(prompt)
+  const text = await callGemini(prompt)
   return parseJSON(text)
 }
 
@@ -107,7 +111,7 @@ Respond ONLY in this exact JSON format (no markdown, no extra text):
 
 Valid confidenceLevel values: high, medium, low
 `
-  const text = await callGroq(prompt)
+  const text = await callGemini(prompt)
   return parseJSON(text)
 }
 
@@ -139,7 +143,7 @@ Respond ONLY in this exact JSON format (no markdown, no extra text):
   "positiveHighlights": ["highlight1", "highlight2"]
 }
 `
-  const text = await callGroq(prompt)
+  const text = await callGemini(prompt)
   return parseJSON(text)
 }
 
@@ -197,7 +201,7 @@ Instructions:
 - Do not use markdown formatting
 - Do not make up data that is not provided above
 `
-  const text = await callGroq(prompt)
+  const text = await callGemini(prompt)
   return text
 }
 
