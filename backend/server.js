@@ -34,15 +34,27 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
+// app.set('trust proxy', 1);
+// // Session middleware (required for passport)
+// app.use(session({
+//   secret: process.env.SESSION_SECRET || "fallback_secret",
+//   resave: false,
+//   saveUninitialized: false,
+//   cookie: {
+//     secure: true,        // required for HTTPS (Cloud Run)
+//     sameSite: "none"     // required for frontend on Firebase
+//   }
+// }));
+
 app.set('trust proxy', 1);
-// Session middleware (required for passport)
+
 app.use(session({
-  secret: process.env.SESSION_SECRET || "fallback_secret",
+  secret: process.env.SESSION_SECRET || "fallback",
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: true,        // required for HTTPS (Cloud Run)
-    sameSite: "none"     // required for frontend on Firebase
+    secure: true,
+    sameSite: "none"
   }
 }));
 app.options('*', cors());
