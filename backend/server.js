@@ -8,7 +8,7 @@ const session = require('express-session');
 const connectDB = require('./config/db');
 
 dotenv.config();
-connectDB();
+// connectDB();
 
 const app = express();
 const passport = require('./config/passport');
@@ -25,13 +25,19 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+
+app.set('trust proxy', 1);
 // Session middleware (required for passport)
 app.use(session({
-  secret: process.env.SESSION_SECRET,
+  secret: process.env.SESSION_SECRET || "fallback_secret",
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: process.env.NODE_ENV === 'production' }
+  cookie: {
+    secure: true,        // required for HTTPS (Cloud Run)
+    sameSite: "none"     // required for frontend on Firebase
+  }
 }));
+app.options('*', cors());
 
 // Passport middleware
 app.use(passport.initialize());
@@ -63,3 +69,20 @@ const PORT = process.env.PORT || 8080;
 app.listen(PORT,'0.0.0.0', () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+const startServer = async () => {
+  try {
+    await connectDB(); // wait for DB
+
+    const PORT = process.env.PORT || 8080;
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+
+  } catch (error) {
+    console.error("❌ Failed to start server:", error.message);
+    process.exit(1);
+  }
+};
+
+startServer();
