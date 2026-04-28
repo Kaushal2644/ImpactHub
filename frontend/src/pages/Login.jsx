@@ -36,7 +36,7 @@ const Login = () => {
     // Clear any existing auth first
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    window.location.href = "http://localhost:5000/api/auth/google";
+    window.location.href = 'https://impacthub-backend-617909249708.us-central1.run.app/api/auth/google';
   };
 
   return (

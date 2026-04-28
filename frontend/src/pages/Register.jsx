@@ -52,7 +52,7 @@ const Register = () => {
   }
 
   const handleGoogleLogin = () => {
-    window.location.href = 'http://localhost:5000/api/auth/google'
+    window.location.href = 'https://impacthub-backend-617909249708.us-central1.run.app/api/auth/google'
   }
 
   const inputClass = "w-full px-4 py-3 rounded-xl text-white text-sm outline-none transition-all border border-white/12 focus:border-indigo-500"
