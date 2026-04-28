@@ -16,7 +16,7 @@ const passport = require('./config/passport');
 // Middleware
 app.use(helmet());
 app.use(cors({
-  origin: ['https://impact-hub-roan.vercel.app/login', process.env.FRONTEND_URL],
+  origin: ['http://localhost:5173', process.env.FRONTEND_URL],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
