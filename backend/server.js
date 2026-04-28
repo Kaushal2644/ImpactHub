@@ -19,7 +19,7 @@ dotenv.config();
 // connectDB();
 
 const app = express();
-const passport = require('./config/passport');
+// const passport = require('./config/passport');
 
 // Middleware
 app.use(helmet());
@@ -60,8 +60,8 @@ app.use(session({
 app.options('*', cors());
 
 // Passport middleware
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 // Routes
 app.use('/api/auth', require('./routes/auth'));
