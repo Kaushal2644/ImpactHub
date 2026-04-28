@@ -164,11 +164,11 @@ const Login = () => {
           </p>
 
           {/* Test Credentials */}
-          <div className="mt-5 p-3 rounded-xl border border-indigo-500/20 bg-indigo-500/10">
+          {/* <div className="mt-5 p-3 rounded-xl border border-indigo-500/20 bg-indigo-500/10">
             <p className="text-indigo-300 text-xs font-semibold mb-1">Test Credentials:</p>
             <p className="text-slate-400 text-xs">Admin: admin@impacthub.com / admin123</p>
             <p className="text-slate-400 text-xs">Volunteer: volunteer@impacthub.com / volunteer123</p>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
