@@ -16,7 +16,7 @@ const callGemini = async (prompt, retries = 3) => {
   for (let i = 0; i < retries; i++) {
     try {
       const model = genAI.getGenerativeModel({
-        model: "gemini-2.0-flash"
+        model: "gemini-2.5-flash"
       });
       const result = await model.generateContent(prompt);
       return result.response.text();

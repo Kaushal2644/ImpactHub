@@ -5,12 +5,12 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
 
 async function test() {
   const models = [
-    'gemini-1.5-flash',
-    'gemini-1.5-pro',
-    'gemini-1.0-pro',
-    'gemini-2.0-flash-lite',
-    'gemini-2.0-flash',
-    'gemini-2.0-pro'
+    'gemini-2.5-flash-preview-04-17',
+    'gemini-2.5-pro-preview-03-25',
+    'gemini-2.5-flash',
+    'gemini-2.5-pro',
+    'gemini-2.0-flash-001',
+    'gemini-2.0-flash-lite-001'
   ]
 
   for (const modelName of models) {
@@ -21,7 +21,7 @@ async function test() {
       console.log(`✅ ${modelName} works:`, result.response.text())
       break
     } catch (err) {
-      console.log(`❌ ${modelName} failed:`, err.message.slice(0, 150))
+      console.log(`❌ ${modelName} failed:`, err.message.slice(0, 200))
     }
   }
 }
