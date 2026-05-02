@@ -3,15 +3,33 @@ const { GoogleGenerativeAI } = require('@google/generative-ai')
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
 
 // Helper to call Gemini
-const callGemini = async (prompt) => {
-  const model = genAI.getGenerativeModel({
-    model: "gemini-2.0-flash"
-  });
+// const callGemini = async (prompt) => {
+//   const model = genAI.getGenerativeModel({
+//     model: "gemini-2.0-flash"
+//   });
 
-  const result = await model.generateContent(prompt);
+//   const result = await model.generateContent(prompt);
 
-  return result.response.text();
-};
+//   return result.response.text();
+// };
+const callGemini = async (prompt, retries = 3) => {
+  for (let i = 0; i < retries; i++) {
+    try {
+      const model = genAI.getGenerativeModel({
+        model: "gemini-2.0-flash"
+      });
+      const result = await model.generateContent(prompt);
+      return result.response.text();
+    } catch (err) {
+      if (err.message.includes('429') && i < retries - 1) {
+        console.log(`Rate limited. Retrying in ${(i + 1) * 2}s...`)
+        await new Promise(resolve => setTimeout(resolve, (i + 1) * 2000))
+      } else {
+        throw err
+      }
+    }
+  }
+}
 
 // Helper to parse JSON from response
 const parseJSON = (text) => {
