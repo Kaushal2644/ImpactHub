@@ -258,12 +258,6 @@ npm run dev
 http://localhost:5173
 ```
 
-### Test Accounts
-```
-Admin     → admin@impacthub.com     / admin123
-Volunteer → volunteer@impacthub.com / volunteer123
-```
-
 ---
 
 ## 🧠 Smart Match Algorithm
