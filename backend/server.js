@@ -18,8 +18,7 @@ app.use(helmet());
 app.use(cors({
   origin: [
     'http://localhost:5173',
-    'https://impacthub-493708-8bf37.web.app',
-    'https://impacthub-493708-8bf37.firebaseapp.com',
+    'https://impact-hub-fresh.vercel.app',
     process.env.FRONTEND_URL
   ],
   credentials: true,
